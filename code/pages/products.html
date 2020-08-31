@@ -1,3 +1,26 @@
-<psk-page title="Barcode - Products">
-    Products
+<psk-page title="Barcode → Products">
+    <psk-container controller-name="ProductsController">
+        <h3>Your list of products</h3>
+        <psk-for-each data-view-model="store.products">
+            <div class="product">
+                <div style="margin: 0 15px">
+                    <psk-grid columns="3" layout="xs=[12,12,12] l=[4,4,4]">
+                        <psk-input value="@productName" label="Name" read-only="true"></psk-input>
+                        <psk-input value="@publishDate" label="Publish date" read-only="true"></psk-input>
+                        <psk-input value="@barcode" label="Barcode" read-only="true"></psk-input>
+                    </psk-grid>
+                </div>
+                <psk-form>
+                    <psk-form-row>
+                        <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 20px; align-items: flex-end">
+                            <psk-textarea value="@productDescription" label="Description" read-only="true"></psk-textarea>
+                            <psk-button type="submit" value="@index" event-name="delete-product">
+                                <psk-icon icon="trash" color="#EEEEEE"></psk-icon>
+                            </psk-button>
+                        </div>
+                    </psk-form-row>
+                </psk-form>
+            </div>
+        </psk-for-each>
+    </psk-container>
 </psk-page>

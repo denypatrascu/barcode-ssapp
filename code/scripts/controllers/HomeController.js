@@ -198,6 +198,7 @@ class HomeController extends ContainerController {
             }
 
             this._resetForm(model);
+            this._queryStore(model);
         });
     }
 
