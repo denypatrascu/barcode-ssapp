@@ -3,19 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>PSK App Core</title>
-    <link href="/resources/css/main.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>Barcode SSApp</title>
+
+    <link href="/resources/css/main.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <psk-app-root>
         <header>
-            <img class="cardinal-logo" width="38px" height="38px" src="/resources/images/cardinal.png" />
-            <app-menu></app-menu>
+            <div class="container container-header">
+                <app-menu></app-menu>
+            </div>
         </header>
-        <section>
+        <section class="container-main">
             <psk-app-router failRedirectTo="/home"></psk-app-router>
         </section>
     </psk-app-root>

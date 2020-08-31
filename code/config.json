@@ -1,8 +1,9 @@
 {
-  "basePagesUrl": "/pages/",
+  "basePagesUrl": "/pages",
   "profile": {
     "username": "SSapp",
     "email": "your-email@domain.com",
     "avatar": "/resources/images/cardinal.png"
-  }
+  },
+  "theme": "barcode-theme"
 }

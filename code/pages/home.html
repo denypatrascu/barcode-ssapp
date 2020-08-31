@@ -1,5 +1,183 @@
-<psk-page title="Cardinal.js">
-    <psk-card title="Cardinal.jsMini Framework for building web applications">
-        <p>Mini Framework for building web applications</p>
-    </psk-card>
+<psk-page title="Barcode → Home">
+    <psk-container controller-name="HomeController">
+        <!-- Introduction -->
+        <psk-description title="A simple Self Sovereign Application for managing products!">
+            <p>Hello World!</p>
+        </psk-description>
+
+        <!-- Form for adding new products -->
+        <section>
+            <h3>Add your product</h3>
+            <div style="margin-top: 10px">
+                <psk-form>
+                    <!-- form-actions="Save,Reset"> -->
+                    <psk-grid columns="2" layout="m=[7,5]">
+                        <psk-text-input view-model="form.productName"></psk-text-input>
+                        <psk-date-input view-model="form.publishDate"></psk-date-input>
+                    </psk-grid>
+                    <psk-form-row>
+                        <psk-textarea view-model="form.productDescription"></psk-textarea>
+                    </psk-form-row>
+                    <psk-form-row>
+                        <psk-label>Product barcode</psk-label>
+                        <psk-grid columns="2" layout="s=[7,5]">
+                            <psk-condition condition="@switchExpression">
+                                <psk-form slot="condition-true">
+                                    <div style="margin: 10px 15px 0 -15px">
+                                        <psk-text-input view-model="@form.barcode"></psk-text-input>
+                                    </div>
+                                </psk-form>
+                                <psk-form slot="condition-false">
+                                    <div style="margin: 10px 15px 0 -15px">
+                                        <psk-text-input view-model="@form.barcode" read-only="true"></psk-text-input>
+                                    </div>
+                                </psk-form>
+                            </psk-condition>
+                            <psk-switch-button
+                                    style="font-size: 0.8em; margin-left: -15px"
+                                    active="Input" inactive="Camera"
+                                    toggle-event="switch">
+                            </psk-switch-button>
+                        </psk-grid>
+                        <psk-condition condition="@switchExpression">
+                            <div slot="condition-false" style="margin: 0 -15px">
+                                <psk-condition condition="@scanner.active">
+                                    <psk-description slot="condition-false">
+                                        <div style="display: flex; justify-content: center; align-items: center">
+                                            <psk-button event-name="toggle-scanner">
+                                                <span>Open camera</span>
+                                                <psk-icon icon="camera" color="#EEEEEE"></psk-icon>
+                                            </psk-button>
+                                        </div>
+                                    </psk-description>
+                                    <div slot="condition-true"
+                                         style="display: grid; justify-content: center; align-items: center">
+                                        <psk-button event-name="toggle-scanner"
+                                                    button-class="btn btn-secondary"
+                                                    style="margin-left: 15px">
+                                            <span>Stop camera</span>
+                                            <psk-icon icon="camera" color="#EEEEEE"></psk-icon>
+                                        </psk-button>
+                                        <psk-barcode-scanner
+                                            style="min-width: 640px"
+                                            title="Barcode Scanner"
+                                            data="@scanner.data">
+                                        </psk-barcode-scanner>
+                                    </div>
+                                </psk-condition>
+                            </div>
+                        </psk-condition>
+                    </psk-form-row>
+                    <div style="padding-top: 15px">
+                        <psk-form-row>
+                            <psk-button
+                                    type="submit" style="margin-right: 15px"
+                                    event-name="new-product-submit">
+                                <span>Add</span>
+                                <psk-icon icon="plus" color="#EEEEEE"></psk-icon>
+                            </psk-button>
+                            <psk-button
+                                    type="submit"
+                                    event-name="new-product-reset"
+                                    button-class="btn btn-secondary">Reset</psk-button>
+                        </psk-form-row>
+                    </div>
+                </psk-form>
+            </div>
+        </section>
+
+        <!-- List with the latest products inserted -->
+        <section>
+            <h3>Last added products</h3>
+            <psk-form>
+                <psk-form-row layout="l=[3,3,3] xs=[4,4,4]">
+                    <psk-select view-model="preview.orderBy"></psk-select>
+                    <psk-select view-model="preview.order"></psk-select>
+                    <psk-number-input view-model="preview.howMany"></psk-number-input>
+                </psk-form-row>
+            </psk-form>
+            <div style="padding: 0 15px">
+                <psk-grid columns="3" layout="xs=[12,12,12] l=[3,6,3]">
+                    <psk-label>Product</psk-label>
+                    <psk-label>Description</psk-label>
+                    <psk-label>Publish date</psk-label>
+                </psk-grid>
+                <psk-for-each data-view-model="store.queryProducts">
+                    <psk-grid columns="3" layout="xs=[12,12,12] l=[3,6,3]">
+                        <psk-input value="@productName" read-only="true"></psk-input>
+                        <psk-input value="@productDescription" read-only="true"></psk-input>
+                        <psk-input value="@publishDate" read-only="true"></psk-input>
+                    </psk-grid>
+                </psk-for-each>
+            </div>
+        </section>
+    </psk-container>
+
+    <!--    <psk-container controller-name="FloatingMenuController">-->
+    <!--        <psk-floating-menu></psk-floating-menu>-->
+    <!--    </psk-container>-->
+
+    <!--    <psk-card title="Cardinal.js Mini Framework for building web applications">-->
+    <!--        <p>Mini Framework for building web applications</p>-->
+    <!--    </psk-card>-->
 </psk-page>
+
+
+<!--<section>-->
+<!--    <div style="margin-left: 30px">-->
+<!--        <psk-grid columns="2" layout="s=[8,4]">-->
+<!--            <h3 style="padding: 0 0 10px 0; margin: 0">Add your product</h3>-->
+<!--            <psk-switch-button-->
+<!--                    style="font-size: 0.8em; margin-left: -30px"-->
+<!--                    active="Form" inactive="Camera"-->
+<!--                    toggle-event="switch"-->
+<!--            ></psk-switch-button>-->
+<!--        </psk-grid>-->
+<!--    </div>-->
+<!--    <psk-condition condition="@switchExpression">-->
+<!--        <div slot="condition-true" style="margin-top: 10px">-->
+<!--            <psk-form>-->
+<!--                &lt;!&ndash; form-actions="Save,Reset"> &ndash;&gt;-->
+<!--                <psk-grid columns="2" layout="m=[7,5]">-->
+<!--                    <psk-text-input view-model="form.productName"></psk-text-input>-->
+<!--                    <psk-date-input view-model="form.publishDate"></psk-date-input>-->
+<!--                </psk-grid>-->
+<!--                <psk-form-row>-->
+<!--                    <psk-textarea view-model="form.productDescription"></psk-textarea>-->
+<!--                </psk-form-row>-->
+<!--                <div style="padding-top: 15px">-->
+<!--                    <psk-form-row>-->
+<!--                        <psk-button-->
+<!--                                type="submit" style="margin-right: 15px"-->
+<!--                                event-name="new-product-submit">-->
+<!--                            <span>Add</span>-->
+<!--                            <psk-icon icon="plus" color="#EEEEEE"></psk-icon>-->
+<!--                        </psk-button>-->
+<!--                        <psk-button-->
+<!--                                type="submit"-->
+<!--                                event-name="new-product-reset"-->
+<!--                                button-class="btn btn-secondary">Reset</psk-button>-->
+<!--                    </psk-form-row>-->
+<!--                </div>-->
+<!--            </psk-form>-->
+<!--        </div>-->
+<!--        <div slot="condition-false" style="padding: 15px">-->
+<!--            <psk-condition condition="@scanner.active">-->
+<!--                <psk-button slot="condition-false" event-name="toggle-scanner">-->
+<!--                    <span>Open camera</span>-->
+<!--                    <psk-icon icon="camera" color="#EEEEEE"></psk-icon>-->
+<!--                </psk-button>-->
+<!--                <psk-button slot="condition-true" event-name="toggle-scanner">-->
+<!--                    <span>Stop camera</span>-->
+<!--                    <psk-icon icon="camera" color="#EEEEEE"></psk-icon>-->
+<!--                </psk-button>-->
+<!--                <psk-barcode-scanner-->
+<!--                        slot="condition-true"-->
+<!--                        allow-file-browsing="true"-->
+<!--                        title="Barcode Scanner"-->
+<!--                        data="@scanner.data">-->
+<!--                </psk-barcode-scanner>-->
+<!--            </psk-condition>-->
+<!--        </div>-->
+<!--    </psk-condition>-->
+<!--</section>-->

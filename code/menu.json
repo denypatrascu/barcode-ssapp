@@ -8,10 +8,18 @@
   },
   "pages": [
     {
-      "name": "Home",
-      "path": "/home",
+      "name": "",
       "icon": "fa-home",
+      "path": "/home",
       "pageSrc": "home.html"
+    },
+    {
+      "name": "Products",
+      "icon": "fa-database"
+    },
+    {
+      "name": "About",
+      "icon": "fa-info-circle"
     }
   ]
 }
