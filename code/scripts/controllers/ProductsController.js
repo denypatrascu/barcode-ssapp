@@ -24,7 +24,16 @@ class ProductsController extends ContainerController {
         this._fetchStore(this.model);
 
         this.on('delete-product', e => {
+            // lack of checkins
             console.log(e, e.submitter, e.target);
+            const form = e.target.querySelector('form');
+            let index = undefined;
+            for (const element of form.elements) {
+                if (element.name !== 'index') continue;
+                index = element.value;
+                break;
+            }
+            if (index) this._deleteProduct(this.model, index)
         })
     }
 
@@ -44,6 +53,18 @@ class ProductsController extends ContainerController {
             model.store = data;
         });
     }
+
+    _deleteProduct(model, index) {
+        model.store.products.splice(index, 1);
+
+        // this.DSUStorage.setObject(STORE_PATH, model.store, err => {
+        //     if (err) {
+        //         console.error(err);
+        //         return;
+        //     }
+        // });
+    }
 }
+
 
 export default ProductsController;

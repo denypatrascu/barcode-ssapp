@@ -3,14 +3,13 @@
         <h3>Your list of products</h3>
         <psk-for-each data-view-model="store.products">
             <div class="product">
-                <div style="margin: 0 15px">
+                <psk-form>
                     <psk-grid columns="3" layout="xs=[12,12,12] l=[4,4,4]">
                         <psk-input value="@productName" label="Name" read-only="true"></psk-input>
                         <psk-input value="@publishDate" label="Publish date" read-only="true"></psk-input>
                         <psk-input value="@barcode" label="Barcode" read-only="true"></psk-input>
                     </psk-grid>
-                </div>
-                <psk-form>
+                    <psk-input value="@index" name="index" hidden></psk-input>
                     <psk-form-row>
                         <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 20px; align-items: flex-end">
                             <psk-textarea value="@productDescription" label="Description" read-only="true"></psk-textarea>
